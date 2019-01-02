@@ -1,1 +1,1 @@
-include ':app', ':unity3dplugin', ':baselib'
+include ':app', ':unity3dplugin'

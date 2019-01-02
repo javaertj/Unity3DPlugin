@@ -45,6 +45,7 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
+    api rootProject.ext.dependencies.appCompat
     api rootProject.ext.dependencies.fastjson
-    api project(':baselib')
+    api rootProject.ext.dependencies.butterknife
 }

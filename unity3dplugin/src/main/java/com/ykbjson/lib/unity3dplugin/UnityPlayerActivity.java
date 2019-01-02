@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unity3d.player.UnityPlayer;
-import com.ykbjson.lib.baselib.impl.BaseActivity;
+import com.ykbjson.lib.unity3dplugin.base.impl.BaseActivity;
 import com.ykbjson.lib.unity3dplugin.internal.IGetUnity3DCall;
 import com.ykbjson.lib.unity3dplugin.internal.IOnUnity3DCall;
 import com.ykbjson.lib.unity3dplugin.internal.IUnityPlayerContainer;

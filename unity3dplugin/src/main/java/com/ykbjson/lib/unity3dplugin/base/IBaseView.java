@@ -1,4 +1,4 @@
-package com.ykbjson.lib.baselib;
+package com.ykbjson.lib.unity3dplugin.base;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Description：Basic interface of all {@link android.app.Activity}
+ * Description：Basic interface of all {@link Activity}
  * or
- * {@link android.support.v4.app.Fragment}
+ * {@link Fragment}
  * or
  * {@link android.app.Fragment}
  * <p>
@@ -30,9 +30,9 @@ public interface IBaseView {
     int contentViewLayoutId();
 
     /**
-     * Call after {@link android.app.Activity#onCreate(Bundle)}
+     * Call after {@link Activity#onCreate(Bundle)}
      * or
-     * {@link android.support.v4.app.Fragment#onCreateView(LayoutInflater, ViewGroup, Bundle)}
+     * {@link Fragment#onCreateView(LayoutInflater, ViewGroup, Bundle)}
      * or
      * {@link android.app.Fragment#onCreateView(LayoutInflater, ViewGroup, Bundle)}
      *
