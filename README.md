@@ -1,2 +1,2 @@
 # Unity3DPlugin
-A plugin for Android communicate with unity3d each other
+A plugin that allows Android to interact with Unity3D
