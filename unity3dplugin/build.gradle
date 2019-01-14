@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.github.dcendents.android-maven'
 
 //加载资源
 Properties properties = new Properties()
@@ -15,6 +16,8 @@ publish {
     publishVersion = rootProject.ext.bintray.pluginVersionName
     desc = 'Unity3DPlugin库核心代码'
 }
+
+group='com.github.ykbjson'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
