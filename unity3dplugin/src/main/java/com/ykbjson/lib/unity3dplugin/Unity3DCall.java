@@ -18,7 +18,9 @@ public class Unity3DCall {
      * @param callInfo Carrier for Android and Unity3D interaction
      */
     public static void doUnity3DVoidCall(@NonNull ICallInfo callInfo) {
-        Log.i("Unity3DCall", callInfo.toString());
+        if(BuildConfig.DEBUG) {
+            Log.i("Unity3DCall", callInfo.toString());
+        }
         UnityPlayer.UnitySendMessage(callInfo.getCallModelName(), callInfo.getCallMethodName(),
                 callInfo.isNeedCallMethodParams() ? callInfo.toString() : "");
     }

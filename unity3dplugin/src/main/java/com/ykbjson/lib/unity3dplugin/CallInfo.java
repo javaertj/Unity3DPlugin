@@ -145,6 +145,14 @@ public class CallInfo implements ICallInfo {
         private boolean unityCall;
         private boolean needCallMethodParams = true;
 
+        private Builder(){
+
+        }
+
+        public static Builder create() {
+            return new Builder();
+        }
+
         public Builder callModelName(@Nullable String callModelName) {
             this.callModelName = callModelName;
             return this;

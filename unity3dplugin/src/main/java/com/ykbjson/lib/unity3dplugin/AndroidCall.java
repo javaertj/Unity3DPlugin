@@ -59,13 +59,17 @@ public class AndroidCall {
 
 
     public void onVoidCall(@NonNull String param) {
-        Log.d(TAG, "onVoidCall, param : " + param);
-        onAndroidVoidCall(new CallInfo.Builder().build(param));
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "onVoidCall, param : " + param);
+        }
+        onAndroidVoidCall(CallInfo.Builder.create().build(param));
     }
 
     public Object onReturnCall(@NonNull String param) {
-        Log.d(TAG, "onReturnCall, param : " + param);
-        return onAndroidReturnCall(new CallInfo.Builder().build(param));
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "onReturnCall, param : " + param);
+        }
+        return onAndroidReturnCall(CallInfo.Builder.create().build(param));
     }
 
     public void onAndroidVoidCall(@NonNull ICallInfo param) {

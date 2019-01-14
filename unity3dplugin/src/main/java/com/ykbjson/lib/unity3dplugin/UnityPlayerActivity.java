@@ -56,8 +56,11 @@ public abstract class UnityPlayerActivity extends BaseActivity implements IGetUn
                 getFragmentManager().beginTransaction().replace(unityPlayerContainerId(),
                         (android.app.Fragment) mOnUnity3DCallDelegate, ((android.app.Fragment) mOnUnity3DCallDelegate)
                                 .getClass().getName()).commit();
+            } else if (mOnUnity3DCallDelegate instanceof View) {
+                final ViewGroup unityContainer = findViewById(unityPlayerContainerId());
+                unityContainer.addView((View) mOnUnity3DCallDelegate);
             } else {
-                throw new IllegalAccessError("Not a fragment");
+                throw new IllegalArgumentException("Not support type : " + mOnUnity3DCallDelegate.toString());
             }
         } else {
             mOnUnity3DCallDelegate = this;
