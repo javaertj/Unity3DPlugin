@@ -19,6 +19,7 @@ import java.lang.ref.SoftReference;
  */
 public class AndroidCall {
     private final String TAG = getClass().getName();
+    public static boolean enableLog;
 
     private IOnUnity3DCall onUnity3DCall;
     private SoftReference<Activity> hostContext;
@@ -59,14 +60,14 @@ public class AndroidCall {
 
 
     public void onVoidCall(@NonNull String param) {
-        if (BuildConfig.DEBUG) {
+        if (enableLog) {
             Log.d(TAG, "onVoidCall, param : " + param);
         }
         onAndroidVoidCall(CallInfo.Builder.create().build(param));
     }
 
     public Object onReturnCall(@NonNull String param) {
-        if (BuildConfig.DEBUG) {
+        if (enableLog) {
             Log.d(TAG, "onReturnCall, param : " + param);
         }
         return onAndroidReturnCall(CallInfo.Builder.create().build(param));
