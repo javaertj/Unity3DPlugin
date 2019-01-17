@@ -51,6 +51,7 @@ public abstract class BaseFragmentV4 extends Fragment implements IBaseView {
 
     @Override
     public void onDestroyView() {
+        onVieDestroyed();
         if (null != unbinder) {
             unbinder.unbind();
         }
@@ -58,8 +59,5 @@ public abstract class BaseFragmentV4 extends Fragment implements IBaseView {
             ((ViewGroup) mainContentView.getParent()).removeView(mainContentView);
         }
         super.onDestroyView();
-
-        onVieDestroyed();
     }
-
 }

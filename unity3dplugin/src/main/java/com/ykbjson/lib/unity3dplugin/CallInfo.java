@@ -26,13 +26,13 @@ public class CallInfo implements ICallInfo {
     CallInfo(@Nullable Builder builder) {
         this();
         if (null != builder) {
-            unityCall = builder.unityCall;
-            needCallMethodParams = builder.needCallMethodParams;
-            callModelName = builder.callModelName;
-            callMethodName = builder.callMethodName;
-            callMethodParams = builder.callMethodParams;
-            setChild(builder.child);
-            setParent(builder.parent);
+            setUnityCall(builder.unityCall)
+                    .setNeedCallMethodParams(builder.needCallMethodParams)
+                    .setCallModelName(builder.callModelName)
+                    .setCallMethodName(builder.callMethodName)
+                    .setCallMethodParams(builder.callMethodParams)
+                    .setChild(builder.child)
+                    .setParent(builder.parent);
         }
     }
 
@@ -55,18 +55,11 @@ public class CallInfo implements ICallInfo {
 
     public CallInfo setChild(@Nullable CallInfo child) {
         this.child = child;
-        if (null != child) {
-            child.setParent(this);
-        }
-
         return this;
     }
 
     public CallInfo setParent(@Nullable CallInfo parent) {
         this.parent = parent;
-        if (null != parent) {
-            parent.setChild(this);
-        }
         return this;
     }
 
@@ -145,7 +138,7 @@ public class CallInfo implements ICallInfo {
         private boolean unityCall;
         private boolean needCallMethodParams = true;
 
-        private Builder(){
+        private Builder() {
 
         }
 

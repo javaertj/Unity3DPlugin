@@ -20,3 +20,45 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# 保持native方法不被混淆
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+# 保持Parcelable不被混淆
+-keep class * implements Android.os.Parcelable {
+    public static final Android.os.Parcelable$Creator *;
+}
+# 保持enum不被混淆
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+#保持com.ykbjson.lib.unity3dplugin下所有类不被混淆
+-keep class com.ykbjson.lib.unity3dplugin.* {*;}
+
+#unity3d
+-keep class bitter.jnibridge.* { *; }
+-keep class com.unity3d.player.* { *; }
+-keep class org.fmod.* { *; }
+-ignorewarnings
+
+#fastjson
+-dontwarn com.alibaba.fastjson.**
+-keep class com.alibaba.fastjson.**{*;}
+#忽略范型
+-keepattributes Signature
+#忽略序列化，实体类实现Serializable接口即可不需单独添加到这里混淆
+-keepclassmembers class * implements java.io.Serializable { *; }
+
+#butterknife
+# Retain generated class which implement Unbinder.
+-keep public class * implements butterknife.Unbinder { public <init>(**, android.view.View); }
+
+# Prevent obfuscation of types which use ButterKnife annotations since the simple name
+# is used to reflectively look up the generated ViewBinding.
+-keep class butterknife.*
+-keepclasseswithmembernames class * { @butterknife.* <methods>; }
+-keepclasseswithmembernames class * { @butterknife.* <fields>; }
+
+
+

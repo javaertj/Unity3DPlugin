@@ -39,11 +39,11 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     @Override
     protected void onDestroy() {
+        onVieDestroyed();
         if (null != unbinder) {
             unbinder.unbind();
         }
         mainContentView = null;
         super.onDestroy();
-        onVieDestroyed();
     }
 }

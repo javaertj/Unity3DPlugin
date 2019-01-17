@@ -26,11 +26,14 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.bintray.pluginVersionCode
         versionName rootProject.ext.bintray.pluginVersionName
+
+        consumerProguardFiles 'proguard-unity3dplugin.txt'
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
