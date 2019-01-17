@@ -20,10 +20,10 @@ ext {
     ]
 
     bintray = [
-            pluginVersionName   : '1.0.2',
-            pluginVersionCode :102,
-            libraryVersionName: '1.0.2',
-            libraryVersionCode :102,
+            pluginVersionName   : '1.0.3',
+            pluginVersionCode :105,
+            libraryVersionName: '1.0.3',
+            libraryVersionCode :105,
 
             siteUrl       : 'https://github.com/ykbjson/Unity3DPlugin',
             gitUrl        : 'https://github.com/ykbjson/Unity3DPlugin.git',

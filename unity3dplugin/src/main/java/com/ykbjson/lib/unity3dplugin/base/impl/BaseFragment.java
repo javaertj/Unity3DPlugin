@@ -30,11 +30,14 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
         if (null == mainContentView) {
             mainContentView = inflater.inflate(contentViewLayoutId(), container, false);
             unbinder = ButterKnife.bind(this, mainContentView);
-            if (null == savedInstanceState) {
-                savedInstanceState = new Bundle();
+            Bundle bundle = getArguments();
+            if (null == bundle) {
+                bundle = new Bundle();
             }
-            savedInstanceState.putAll(getArguments());
-            onViewCreated(savedInstanceState, mainContentView);
+            if (null != savedInstanceState) {
+                bundle.putAll(savedInstanceState);
+            }
+            onViewCreated(bundle, mainContentView);
         } else {
             unbinder = ButterKnife.bind(this, mainContentView);
         }
