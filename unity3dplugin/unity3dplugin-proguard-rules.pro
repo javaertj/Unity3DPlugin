@@ -37,7 +37,7 @@
 -keep class com.ykbjson.lib.unity3dplugin.**
 -keep class com.ykbjson.lib.unity3dplugin.** { *; }
 -keep class com.ykbjson.lib.unity3dplugin.* { *; }
--keepclassmembers com.ykbjson.lib.unity3dplugin.CallInfo$Builder{
+-keepclassmembers class com.ykbjson.lib.unity3dplugin.CallInfo$Builder {
     *;
 }
 
