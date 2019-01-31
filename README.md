@@ -99,9 +99,9 @@
 	        buttonPause.setText(isPause ? "继续" : "暂停");
 	        CallInfo.Builder
                 .create()
-                .callModelName("Ball")//对应的unity组件挂在的script文件指定的名字
-                .callMethodName("SetPause")//对应的unity组件挂在的script文件里的方法名字
-                .addCallMethodParam("isPause", isPause)////对应的unity组件挂在的script文件里的方法需要的参数
+                .callModelName("Ball")//对应的是unity组件挂载的script文件指定的名字
+                .callMethodName("SetPause")//对应的是unity组件挂载的script文件里的方法名字
+                .addCallMethodParam("isPause", isPause)////对应的是unity组件挂在的script文件里的方法需要的参数
                 .build()
                 .send();
 	    }
