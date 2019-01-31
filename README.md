@@ -1,7 +1,9 @@
 # 一、Unity3dPlugin简介
 致力于提供一套最基础的android和unity3d交互的插件方案，精简封装android端与unity3d交互的api，降低android开发者接入unity3d的成本。当然，使用的前提是你必须有一定的unity3d基础知识。
 
-[关于Unity3dPlugin相关的blog正在努力地编辑中...]()
+[Unity3dPlugin解析CSDN](https://blog.csdn.net/yankebin/article/details/86715053)
+
+[Unity3dPlugin解析github blog](https://ykbjson.github.io/2019/01/30/Unity%E4%B8%8EAndroid%E9%80%9A%E4%BF%A1%E7%9A%84%E4%B8%AD%E9%97%B4%E4%BB%B6(%E4%B8%80)/)
 
 关于unity端的源码，请看下面：
 
