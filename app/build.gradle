@@ -42,4 +42,6 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     api rootProject.ext.dependencies.appCompat
     api rootProject.ext.dependencies.supportV4
+    api project(':unity3dplugin')
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc2'
 }

@@ -21,8 +21,8 @@ public class AndroidCall {
     private final String TAG = getClass().getName();
     public static boolean enableLog;
 
-    private IOnUnity3DCall onUnity3DCall;
-    private SoftReference<Activity> hostContext;
+    private final IOnUnity3DCall onUnity3DCall;
+    private final SoftReference<Activity> hostContext;
 
     /**
      * In order to further relax the restrictions of OnUnity3DCall, let Fragment implement OnUnity3DCall can also load Unity3D view, so added {@link IGetUnity3DCall}
@@ -43,7 +43,7 @@ public class AndroidCall {
 
     protected void checkConfiguration() {
         if (null == hostContext || null == hostContext.get()) {
-            throw new RuntimeException(getClass().getSimpleName() + " must be call init(Context) method at first");
+            throw new RuntimeException(getClass().getSimpleName() + " ,Invalid Context");
         }
     }
 
