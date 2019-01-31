@@ -3,6 +3,11 @@
 
 [关于Unity3dPlugin相关的blog正在努力地编辑中...]()
 
+关于unity端的源码，请看下面：
+
+>[demo依赖的unity工程-unity3dballgame](https://github.com/ykbjson/unity3dballgame)
+
+
 # 二、如何引用
 当前最新版本为
 [ ![Download](https://api.bintray.com/packages/ykbjson/maven/unity3dplugin/images/download.svg) ](https://bintray.com/ykbjson/maven/unity3dplugin/_latestVersion)
@@ -32,11 +37,7 @@
 
 想要快速看到效果？
 
-1.直接clone整个项目，用androidstudio导入编译运行即可。
-
-关于unity端的源码，请看下面：
-
->[demo依赖的unity工程](https://github.com/ykbjson/unity3dballgame)
+直接clone整个项目，用androidstudio导入编译运行即可。
 
 又或者你想自己重头开始
 
