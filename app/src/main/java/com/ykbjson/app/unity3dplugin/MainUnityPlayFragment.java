@@ -1,28 +1,34 @@
 package com.ykbjson.app.unity3dplugin;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.unity3d.player.UnityPlayer;
 import com.ykbjson.lib.unity3dplugin.CallInfo;
-import com.ykbjson.lib.unity3dplugin.UnityPlayerActivity;
+import com.ykbjson.lib.unity3dplugin.base.impl.BaseFragmentV4;
 import com.ykbjson.lib.unity3dplugin.internal.ICallInfo;
 import com.ykbjson.lib.unity3dplugin.internal.IOnUnity3DCall;
+import com.ykbjson.lib.unity3dplugin.internal.IUnityPlayerContainer;
 
 import butterknife.BindView;
 
 /**
- * Description：An example for unity3d
+ * Description：加载UnityPlay的Fragment
  * <BR/>
  * Creator：yankebin
  * <BR/>
- * CreatedAt：2019/1/2
+ * CreatedAt：2019/2/12
  */
-public class MainActivity extends UnityPlayerActivity {
+public class MainUnityPlayFragment extends BaseFragmentV4 implements IOnUnity3DCall, IUnityPlayerContainer, View.OnClickListener {
+    protected UnityPlayer mUnityPlayer; // don't change the name of this variable; referenced from native code
 
     private boolean isPause;
     @BindView(R.id.buttonPause)
@@ -30,16 +36,25 @@ public class MainActivity extends UnityPlayerActivity {
 
     @Override
     public int contentViewLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.fragment_show_unity_palyer;
     }
 
+    @Override
+    @CallSuper
+    public void onViewCreated(@NonNull Bundle params, @NonNull View contentView) {
+        if (null != mUnityPlayer) {
+            final ViewGroup unityContainer = contentView.findViewById(unityPlayerContainerId());
+            unityContainer.addView(mUnityPlayer);
+            mUnityPlayer.requestFocus();
+        }
+        buttonPause.setOnClickListener(this);
+    }
 
     @Override
     public void onVieDestroyed() {
 
     }
 
-    //unity3d发送过来的消息，不需要返回值
     @Override
     public void onVoidCall(@NonNull ICallInfo callInfo) {
         switch (callInfo.getCallMethodName()) {
@@ -52,10 +67,15 @@ public class MainActivity extends UnityPlayerActivity {
         }
     }
 
-    //unity3d发送过来的消息，需要返回值
     @Override
     public Object onReturnCall(@NonNull ICallInfo callInfo) {
         return null;
+    }
+
+    @Nullable
+    @Override
+    public Context gatContext() {
+        return getActivity();
     }
 
     @Override
@@ -63,14 +83,12 @@ public class MainActivity extends UnityPlayerActivity {
         return R.id.unityPlayerContainer;
     }
 
-    @Nullable
-    @Override
-    protected IOnUnity3DCall generateIOnUnity3DCallDelegate(@NonNull UnityPlayer unityPlayer, @Nullable Bundle bundle) {
-        return super.generateIOnUnity3DCallDelegate(unityPlayer, bundle);
+    public void setUnityPlayer(@NonNull UnityPlayer mUnityPlayer) {
+        this.mUnityPlayer = mUnityPlayer;
     }
 
-    //在xml文件里指定的onClick
-    public void setPause(View view) {
+    @Override
+    public void onClick(View view) {
         isPause = !isPause;
         buttonPause.setText(isPause ? "继续" : "暂停");
         CallInfo.Builder
@@ -88,6 +106,12 @@ public class MainActivity extends UnityPlayerActivity {
      * @param message
      */
     private void showToast(String message) {
-        Toast.makeText(this, "来自Unity的消息: " + message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "来自Unity的消息: " + message, Toast.LENGTH_SHORT).show();
+    }
+
+    public static MainUnityPlayFragment instantiate(Context context, String name, Bundle param, UnityPlayer unityPlayer) {
+        final MainUnityPlayFragment mainUnityPlayFragment = (MainUnityPlayFragment) Fragment.instantiate(context, name, param);
+        mainUnityPlayFragment.setUnityPlayer(unityPlayer);
+        return mainUnityPlayFragment;
     }
 }
