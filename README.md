@@ -213,6 +213,40 @@
         }
     }
 
+承载该fragment的activity代码如下
+
+    public class MainUnityPlayerFragmentHostActivity extends UnityPlayerActivity {
+        @Override
+        public int contentViewLayoutId() {
+            return R.layout.activity_unity_player_fragment_host;
+        }
+    
+        @Override
+        public void onVieDestroyed() {
+    
+        }
+    
+        @Override
+        public void onVoidCall(@NonNull ICallInfo callInfo) {
+        }
+    
+        @Override
+        public Object onReturnCall(@NonNull ICallInfo callInfo) {
+            return null;
+        }
+    
+        @Override
+        public int unityPlayerContainerId() {
+            return R.id.unityPlayerContainer;
+        }
+    
+        @Nullable
+        @Override
+        protected IOnUnity3DCall generateIOnUnity3DCallDelegate(@NonNull UnityPlayer unityPlayer, @Nullable Bundle bundle) {
+            return MainUnityPlayFragment.instantiate(this, MainUnityPlayFragment.class.getName(), bundle, unityPlayer);
+        }
+    
+    }
 
 
 # 小贴士
