@@ -121,9 +121,102 @@
 	
 因为UnityPlayerActivity实现了IOnUnity3DCall接口，所以重载onVoidCall 、onReturnCall方法即可收到unity发送来的消息，然后自己处理；重载unityPlayerContainerId方法返回有效的可以加载UnityPlayer的ViewGroup的id，然后就完成啦。Activity呈现unity场景就是这么简单。
 
-4.至于Fragment，其实也很简单，大家可以参照unity3dplugin这个库工程里的UnityPlayerFragment的代码，然后在承载这个Fragment的Activity（必须继承至UnityPlayerActivity或者参照UnityPlayerActivity实现）的generateIOnUnity3DCallDelegate方法里，返回你自定义的满足要求的（实现IOnUnity3DCall、IUnityPlayerContainer接口，或者继承至UnityPlayerFragment）Fragment即可，其他地方无需改动。
+4.Fragment载Unity3d视图，其实也很简单，可以参照unity3dplugin这个库工程里的UnityPlayerFragment的代码，然后在承载这个Fragment的Activity（必须继承至UnityPlayerActivity或者参照UnityPlayerActivity实现）的generateIOnUnity3DCallDelegate方法里，返回你自定义的满足要求的（实现IOnUnity3DCall、IUnityPlayerContainer接口，或者继承至UnityPlayerFragment）Fragment即可，其他地方无需改动
+
+
+    public class MainUnityPlayFragment extends BaseFragmentV4 implements IOnUnity3DCall, IUnityPlayerContainer, View.OnClickListener {
+        protected UnityPlayer mUnityPlayer; // don't change the name of this variable; referenced from native code
+    
+        private boolean isPause;
+        @BindView(R.id.buttonPause)
+        Button buttonPause;
+    
+        @Override
+        public int contentViewLayoutId() {
+            return R.layout.fragment_show_unity_palyer;
+        }
+    
+        @Override
+        @CallSuper
+        public void onViewCreated(@NonNull Bundle params, @NonNull View contentView) {
+            if (null != mUnityPlayer) {
+                final ViewGroup unityContainer = contentView.findViewById(unityPlayerContainerId());
+                unityContainer.addView(mUnityPlayer);
+                mUnityPlayer.requestFocus();
+            }
+            buttonPause.setOnClickListener(this);
+        }
+    
+        @Override
+        public void onVieDestroyed() {
+    
+        }
+    
+        @Override
+        public void onVoidCall(@NonNull ICallInfo callInfo) {
+            switch (callInfo.getCallMethodName()) {
+                case "showToast":
+                    showToast(callInfo.getCallMethodParams().getString("message"));
+                    break;
+    
+                default:
+                    break;
+            }
+        }
+    
+        @Override
+        public Object onReturnCall(@NonNull ICallInfo callInfo) {
+            return null;
+        }
+    
+        @Nullable
+        @Override
+        public Context gatContext() {
+            return getActivity();
+        }
+    
+        @Override
+        public int unityPlayerContainerId() {
+            return R.id.unityPlayerContainer;
+        }
+    
+        public void setUnityPlayer(@NonNull UnityPlayer mUnityPlayer) {
+            this.mUnityPlayer = mUnityPlayer;
+        }
+    
+        @Override
+        public void onClick(View view) {
+            isPause = !isPause;
+            buttonPause.setText(isPause ? "继续" : "暂停");
+            CallInfo.Builder
+                    .create()
+                    .callModelName("Ball")//对应的unity组件挂在的script文件指定的名字,本demo中对应BallController
+                    .callMethodName("SetPause")//对应的unity组件挂在的script文件里的方法名字，本demo中对应BallController的SetPause方法
+                    .addCallMethodParam("isPause", isPause)////对应的unity组件挂在的script文件里的方法需要的参数
+                    .build()
+                    .send();
+        }
+    
+        /**
+         * 显示一个toast
+         *
+         * @param message
+         */
+        private void showToast(String message) {
+            Toast.makeText(getActivity(), "来自Unity的消息: " + message, Toast.LENGTH_SHORT).show();
+        }
+    
+        public static MainUnityPlayFragment instantiate(Context context, String name, Bundle param, UnityPlayer unityPlayer) {
+            final MainUnityPlayFragment mainUnityPlayFragment = (MainUnityPlayFragment) Fragment.instantiate(context, name, param);
+            mainUnityPlayFragment.setUnityPlayer(unityPlayer);
+            return mainUnityPlayFragment;
+        }
+    }
+
+
 
 # 小贴士
+
 1.自己实现对接时，请注意参考demo的AndroidManifest文件和build文件，根据自己的项目适当取舍。
 
 2.由于unity版本不同，所导出的android project会有所不同，运行的时候会提示版本不同的错误，大家用自己的unity编辑器导入demo所依赖的unity工程的时候需谨慎。我所尝试过的方法就是把unity编辑器导出的android工程的assets目录完全覆盖当前android工程的assets目录，clean project，然后在运行。
